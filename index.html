@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>The City Of Kothos Automated Testing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="menuVariables_functions.js"></script>
+        <script src="main.js"></script>
+    </head>
+    <body>
+        
+        <h1 id="theHeader">Automated Test for thecityofkothos.com</h1>
+        <button id = "submitAll" type="button" onclick="runTestScripts(3)"></button><br>
+        <!-- Starting the Home Page Menu-->
+        <font color="blue" size="4">
+        <br><b>Menu on the Home Page to test</b><br>
+        </font>
+        <table id="hpMenu" border="3" width="500" >
+            <tr>
+                <td>
+                    <p id="all_1"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="all_1_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m0"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="m0_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m1"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="m1_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m2"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="m2_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m3"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="m3_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m4"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="m4_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m5"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="m5_Check">
+                </td>
+            </tr>  
+            <tr>
+                <td><button type = "button" id = "submitOne" onclick="runTestScripts(0)"></td>
+            </tr>
+        </table>
+        
+        <!-- Starting the Biography Menu-->
+        <font color="blue" size="4">
+            <br><b>Menu of biographies to test</b><br>
+        </font>
+        <table id="bMenu" border="3" width="500" >
+            <tr>
+                <td>
+                    <p id="all_2"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="all_2_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_0"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b0_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_1"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b1_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_2"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b2_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_3"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b3_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_4"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b4_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_5"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b5_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m_6"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="b6_Check">
+                </td>
+            </tr>
+            <tr>
+                <td><button type = "button" id = "submitTwo" onclick="runTestScripts(1)"></td>
+            </tr>
+        </table>    
+            
+        <!--Starting the Art Gallery Menu -->
+        <font color="blue" size="4">
+            <br><b>Menu of Galleries to test</b><br>
+        </font>
+        <table id="gMenu" border="3" width="500" >
+            <tr>
+                <td>
+                    <p id="all_3"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="all_3_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m-0"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="g0_Check">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="m-1"></p>
+                </td>
+                <td>
+                    <input type="checkbox" id="g1_Check">
+                </td>
+            </tr>
+            <tr>
+                <td><button type = "button" id = "submitThree" onclick="runTestScripts(2)"></td>
+            </tr>   
+        </table>
+       
+        <!-- scripting to populate form values -->
+        <script src = "assigningVariables.js"></script>
+    </body>
+</html>
