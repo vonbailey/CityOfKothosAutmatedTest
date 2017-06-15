@@ -5,57 +5,58 @@
  */
 
 //Defining variables
-var mainTitle="The City of Kothos Automatic Testing Page";
-var myButton=["All Menu Items",
-    "Submit Home Page Tests",
-    "Submit Biography Page Tests",
-    "Submit Gallery Page Tests"];
 
-//First Menu labels
-var m_one=["Home Page Button",
-    "Chapter Headings",
-    "Prologue",
-    "Glossary",
-    "Contact Me",
-    "Buy The Book",
-    "All Menu Items in Home Page Section"];
+    var mainTitle="The City of Kothos Automatic Testing Page";
+    var myButton=["All Menu Items",
+        "Submit Home Page Tests",
+        "Submit Biography Page Tests",
+        "Submit Gallery Page Tests"];
 
-
-//Second Menu labels
-var m_two=["Creston",
-    "Bella To",
-    "Tuppa To",
-    "Batuma Kan",
-    "Wen Ta",
-    "Sal Li",
-    "Cleophi Tan",
-    "All Menu Items in Biography Section"];
+    //First Menu labels
+    var m_one=["Home Page Button",
+        "Chapter Headings",
+        "Prologue",
+        "Glossary",
+        "Contact Me",
+        "Buy The Book",
+        "All Menu Items in Home Page Section"];
 
 
-//Third Menu labels
-var m_three=["Black & White Gallery",
-    "Color Gallery",
-    "Both Galleries"];
+    //Second Menu labels
+    var m_two=["Creston",
+        "Bella To",
+        "Tuppa To",
+        "Batuma Kan",
+        "Wen Ta",
+        "Sal Li",
+        "Cleophi Tan",
+        "All Menu Items in Biography Section"];
 
-//Checkbox Names for each menu
-var h_array=["m0_Check",
-    "m1_Check",
-    "m2_Check",
-    "m3_Check",
-    "m4_Check",
-    "m5_Check",
-    "all_1_Check"];
-var b_array=["b0_Check",
-    "b1_Check",
-    "b2_Check",
-    "b3_Check",
-    "b4_Check",
-    "b5_Check",
-    "b6_Check",
-    "all_2_Check"];
-var g_array=["g0_Check",
-    "g1_Check",
-    "all_3_Check"];
+
+    //Third Menu labels
+    var m_three=["Black & White Gallery",
+        "Color Gallery",
+        "Both Galleries"];
+
+    //Checkbox Names for each menu
+    var h_array=["m0_Check",
+        "m1_Check",
+        "m2_Check",
+        "m3_Check",
+        "m4_Check",
+        "m5_Check",
+        "all_1_Check"];
+    var b_array=["b0_Check",
+        "b1_Check",
+        "b2_Check",
+        "b3_Check",
+        "b4_Check",
+        "b5_Check",
+        "b6_Check",
+        "all_2_Check"];
+    var g_array=["g0_Check",
+        "g1_Check",
+        "all_3_Check"];
 
 function httpGet(theUrl)
 {
@@ -93,7 +94,6 @@ function runTestScripts(x)
                 iName=h_array.concat(b_array);
                 iName=iName.concat(g_array);
                 break;
-
         }
 
     var lastItem=iName.pop();// Getting last item in Array
@@ -107,31 +107,35 @@ function runTestScripts(x)
             {
                 for(i=0;i<(ar_Length-1);i++)
                 {
-                  console.log("Item being processed: "+lastItem+" Item#: "
+                    var z=0;
+                    console.log("Item being processed: "+lastItem+" Item#: "
                           +i+" Tag being used: "+lastItem);
-                  y=document.getElementById(lastItem).checked;
-                  console.log("Run Everything checked in a section: "+y);
-                  if(y===true)
-                    {// If checked, process
-                        alert("Testing everything in a specific menu: "+lastItem);
-                        httpGet("http://localhost:8080/index.html?menu100=1&menu1=true&menu2=false&menu3=false","_self"); 
-                        window.open("http://localhost:8080/index.html","_self");
-                    }
-                }                        
+                    y=document.getElementById(lastItem).checked;
+                    if(y===true){z=z+1;}
+                    console.log("Run Everything checked in a section: "+y);
+                }      
+                if(z>0)
+                {// If checked, process
+                    alert("Testing everything in a specific menu: "+lastItem);
+                    httpGet("http://localhost:8080/index.html?menu100=1&menu1=true&menu2=false&menu3=false","_self"); 
+                    window.open("http://localhost:8080/index.html","_self");
+                }
             }
             document.getElementById(lastItem).checked=false;
             return;
         }
     // If the user selected at least 1 each selected will run  
     if(x!==3 & document.getElementById(lastItem).checked===false) 
-        {
+        {   
+            var z=0; // z = the amount of items checked off
             for(i=0;i<(ar_Length-1);i++)
             {
               console.log("Item being processed: "+gName[i]);
               y=document.getElementById(iName[i]).checked;
+              if(y===true){z=z+1;}
               console.log("Run Selected Items is checked: "+y);
             }
-            if(y===true)
+            if(z>0)
               {// If checked, process
                   alert("This is the Multiple Selection Menu");
                   httpGet("http://localhost:8080/index.html?menu100=2&menu1=false&menu2=true&menu3=false","_self"); 
@@ -148,11 +152,15 @@ function runTestScripts(x)
             {
               console.log("Item being processed: "+gName[i]+" Item#: "
                       +i+" Tag being used: "+iName[i]);
-            } 
-              console.log("Run Everything");
-              // If checked, process
+            }
+                console.log("Run Everything");
+                // If checked, process
                 alert("This is testing everything.");
-                httpGet("http://localhost:8080/index.html?menu100=3&menu1=false&menu2=false&menu3=true","_self");
+                httpGet("http://localhost:8080/index.html?menu100=3&menu0=true&menu1=true&menu2=true&menu3=true"+
+                    "&menu4=true&menu5=true&menu6=true"+
+                    "&menu7=true&menu8=true&menu9=true"+
+                    "&menu10=true&menu11=true&menu12=true"+
+                    "&menu13=true&menu14=true&menu15=true","_self");
                 window.open("http://localhost:8080/index.html","_self");                        
         }
     }
