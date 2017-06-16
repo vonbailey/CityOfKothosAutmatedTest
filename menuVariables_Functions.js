@@ -58,6 +58,7 @@
         "g1_Check",
         "all_3_Check"];
 
+//functions
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -68,7 +69,50 @@ function httpGet(theUrl)
     
 }
 
-//functions
+
+function createURL1(ar,aName)
+{
+    var url;
+    switch(aName.pop())
+    {
+        case "all_1_Check":
+            url="http://localhost:8080/index.html?menu100=4";
+            break;
+        case "all_2_Check":
+            url="http://localhost:8080/index.html?menu100=5";
+            break;
+        case "all_3_Check":
+            url="http://localhost:8080/index.html?menu100=6";
+            break;
+    }
+    
+    for(i=0;i<ar;i++)
+    {
+        n=i.toString();
+        url=url+"&menu"+n+"=true";
+        console.log(url);
+    }
+    return url;
+}
+
+function createURL2(ar,aName)
+{
+    var url="http://localhost:8080/index.html?menu100=2";
+    for(i=0;i<ar;i++)
+    {
+        n=i.toString();
+        if(document.getElementById(aName[i]).checked===true)
+        {
+            url=url+"&menu"+n+"=true";
+        }
+        else
+        {
+            url=url+"&menu"+n+"=false";
+        }
+        console.log(url);
+    }
+    return url;
+}
 function runTestScripts(x)
 {
     var gName;
@@ -104,30 +148,51 @@ function runTestScripts(x)
     // If the user selection is all tests in section.
     if(document.getElementById(lastItem).checked===true)
         {
-            {
-                for(i=0;i<(ar_Length-1);i++)
-                {
-                    var z=0;
-                    console.log("Item being processed: "+lastItem+" Item#: "
-                          +i+" Tag being used: "+lastItem);
-                    y=document.getElementById(lastItem).checked;
-                    if(y===true){z=z+1;}
-                    console.log("Run Everything checked in a section: "+y);
-                }      
-                if(z>0)
-                {// If checked, process
-                    alert("Testing everything in a specific menu: "+lastItem);
-                    httpGet("http://localhost:8080/index.html?menu100=1&menu1=true&menu2=false&menu3=false","_self"); 
-                    window.open("http://localhost:8080/index.html","_self");
-                }
+            // Discover which menu is selected.
+            switch(lastItem){
+                case "all_1_Check":
+                    console.log("Selected the Home Page Menu");
+                    theURL=createURL1(ar_Length-1,iName);
+                    break;
+                case "all_2_Check":
+                    console.log("Selected the biography Menu");
+                    theURL=createURL1(ar_Length-1,iName);
+                    break;
+                case "all_3_Check":
+                    console.log("Selected the Gallery Menu");
+                    theURL=createURL1(ar_Length-1,iName);
+                    break;
             }
+            alert("This is testing everything in a specific group.");
+            console.log("SENDING: "+theURL);
+            httpGet(theURL,"_self");
             document.getElementById(lastItem).checked=false;
             return;
         }
     // If the user selected at least 1 each selected will run  
     if(x!==3 & document.getElementById(lastItem).checked===false) 
         {   
-            var z=0; // z = the amount of items checked off
+            // Discover which menu is selected.
+            switch(lastItem){
+                case "all_1_Check":
+                    console.log("Selected the Home Page Menu");
+                    theURL=createURL2(ar_Length-1,iName);
+                    break;
+                case "all_2_Check":
+                    console.log("Selected the biography Menu");
+                    theURL=createURL2(ar_Length-1,iName);
+                    break;
+                case "all_3_Check":
+                    console.log("Selected the Gallery Menu");
+                    theURL=createURL2(ar_Length-1,iName);
+                    break;
+            }
+            alert("This is testing everything in a specific group.");
+            console.log("SENDING: "+theURL);
+            httpGet(theURL,"_self");
+            document.getElementById(lastItem).checked=false;
+            return;
+            /*var z=0; // z = the amount of items checked off
             for(i=0;i<(ar_Length-1);i++)
             {
               console.log("Item being processed: "+gName[i]);
@@ -143,7 +208,7 @@ function runTestScripts(x)
               }
             console.log("Item being cleared: "+gName[i]);
             document.getElementById(iName[i]).checked===false;
-            return;
+            return;*/
         }
     // If the user selects all, all will run
     if(x===3)

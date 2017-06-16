@@ -23,14 +23,32 @@ exports.menuPick=function(menuPick,menu0,menu1,menu2,menu3,menu4,menu5,menu6,men
         menu8,menu9,menu10,menu11,menu12,menu13,menu14,menu15){
     exports.openbrowser();
     switch(menuPick)
-    {   case 1:
+    {   case 4:
             console.log(Date()+": Selected all of a specific group****");
+            if(menu0==="true"){console.log("Home Page Test case");}
+            if(menu1==="true"){console.log("Chapter Headings Test case");}
+            if(menu2==="true"){console.log("Prologe Test case");}
+            if(menu3==="true"){console.log("Glossary Test case");}
+            if(menu4==="true"){console.log("Contact Me Test case");}
+            if(menu5==="true"){console.log("Buy the Book Test case");}            
             break;
-        case 2:
-            console.log(Date()+": Selected multiple selected tests****");
+        case 5:
+            if(menu0==="true"){console.log("Creston Test case");}
+            if(menu1==="true"){console.log("Bella To Headings Test case");}
+            if(menu2==="true"){console.log("Tuppa To Test case");}
+            if(menu3==="true"){console.log("Batuma Kan Test case");}
+            if(menu4==="true"){console.log("Wen Ta Me Test case");}
+            if(menu5==="true"){console.log("Sal Li Test case");}
+            if(menu6==="true"){console.log("Cleophi Tan Test case");}
             break;
+        case 6:
+            if(menu0==="true"){console.log("Black & White Gallary Test case");}
+            if(menu1==="true"){console.log("Color Gallary Test case");}
+            break;
+        case 2:   
         case 3:
-            console.log(Date()+": Selected Everything****");
+            if(menuPick===2){console.log(Date()+": Selected multiple selected tests****");}
+            if(menuPick===3){console.log(Date()+": Selected Everything****");};
             if(menu0==="true"){console.log("Home Page Test case");}
             if(menu1==="true"){console.log("Chapter Headings Test case");}
             if(menu2==="true"){console.log("Prologe Test case");}
@@ -55,10 +73,12 @@ http.createServer(function (req, res) {
   var q = url.parse(req.url, true);
   var filename = "." + q.pathname;
   var qdata=q.query;  
+  console.log("The Menu Data: ");
   console.log(qdata);
   var mSelect=parseInt(qdata.menu100);
+  console.log("mSelect: "+mSelect);
     // If there is a menu selection made do the following
-    if(mSelect>0 && mSelect<4)
+    if((mSelect>0) && (mSelect<7))
         {
         exports.menuPick(mSelect,qdata.menu0,qdata.menu1,qdata.menu2,qdata.menu3
                 ,qdata.menu4,qdata.menu5,qdata.menu6
