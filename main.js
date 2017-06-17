@@ -18,7 +18,6 @@ exports.openbrowser=function() //opens the Chrome browser to the website homepag
     {var driver = new webdriver.Builder().forBrowser('chrome').build();
      driver.get("http://ramses/index.shtml");};
 
-
 exports.menuPick=function(menuPick,menu0,menu1,menu2,menu3,menu4,menu5,menu6,menu7,
         menu8,menu9,menu10,menu11,menu12,menu13,menu14,menu15){
     exports.openbrowser();

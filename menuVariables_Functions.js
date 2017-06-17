@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 //Defining variables
-
     var mainTitle="The City of Kothos Automatic Testing Page";
     var myButton=["All Menu Items",
         "Submit Home Page Tests",
@@ -69,7 +67,6 @@ function httpGet(theUrl)
     
 }
 
-
 function createURL1(ar,aName)
 {
     var url;
@@ -113,6 +110,7 @@ function createURL2(ar,aName)
     }
     return url;
 }
+
 function runTestScripts(x)
 {
     var gName;
@@ -166,7 +164,7 @@ function runTestScripts(x)
             alert("This is testing everything in a specific group.");
             console.log("SENDING: "+theURL);
             httpGet(theURL,"_self");
-            document.getElementById(lastItem).checked=false;
+            window.open("http://localhost:8080/index.html","_self");
             return;
         }
     // If the user selected at least 1 each selected will run  
@@ -187,28 +185,17 @@ function runTestScripts(x)
                     theURL=createURL2(ar_Length-1,iName);
                     break;
             }
-            alert("This is testing everything in a specific group.");
+            var t=theURL.includes("true");
+            if(t===false)
+            {// This verifies that a test was selected.
+                alert("No tests were selected.");
+                return;
+            }
+            alert("This is testing the selected in a specific group.");
             console.log("SENDING: "+theURL);
             httpGet(theURL,"_self");
-            document.getElementById(lastItem).checked=false;
+            window.open("http://localhost:8080/index.html","_self");
             return;
-            /*var z=0; // z = the amount of items checked off
-            for(i=0;i<(ar_Length-1);i++)
-            {
-              console.log("Item being processed: "+gName[i]);
-              y=document.getElementById(iName[i]).checked;
-              if(y===true){z=z+1;}
-              console.log("Run Selected Items is checked: "+y);
-            }
-            if(z>0)
-              {// If checked, process
-                  alert("This is the Multiple Selection Menu");
-                  httpGet("http://localhost:8080/index.html?menu100=2&menu1=false&menu2=true&menu3=false","_self"); 
-                  window.open("http://localhost:8080/index.html","_self"); 
-              }
-            console.log("Item being cleared: "+gName[i]);
-            document.getElementById(iName[i]).checked===false;
-            return;*/
         }
     // If the user selects all, all will run
     if(x===3)
