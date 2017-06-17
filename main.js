@@ -13,25 +13,51 @@ chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
+var dateFormat=require('dateformat');
 
-exports.openbrowser=function() //opens the Chrome browser to the website homepage
-    {var driver = new webdriver.Builder().forBrowser('chrome').build();
-     driver.get("http://ramses/index.shtml");};
+// Test Case Functions
+exports.hpButton=function()
+{
+    var driver = new webdriver.Builder().forBrowser('chrome').build();
+    driver.get('http://ramses/thePages/theChapterHeadings.shtml');
+    //var element = driver.findElement(webdriver.By.name('http://'))
+    //ERRROR No "name" tag for the home page button
+    driver.quit();
+};
+
+exports.cHeadings=function()
+{
+    var driver = new webdriver.Builder().forBrowser('chrome').build();    
+    driver.get('http://ramses/index.shtml');
+    var element=driver.findElement(webdriver.By.name('Chapter Headings'));
+    element.click();
+    driver.quit();
+    
+};
+
+
+//*****************************************************************
+
+
 
 exports.menuPick=function(menuPick,menu0,menu1,menu2,menu3,menu4,menu5,menu6,menu7,
         menu8,menu9,menu10,menu11,menu12,menu13,menu14,menu15){
-    exports.openbrowser();
+    var now=new Date();
+    var dateStamp=dateFormat(now,"isoDateTime");
     switch(menuPick)
     {   case 4:
-            console.log(Date()+": Selected all of a specific group****");
-            if(menu0==="true"){console.log("Home Page Test case");}
-            if(menu1==="true"){console.log("Chapter Headings Test case");}
+            console.log(dateStamp+": Selected all of the Home Page Menu****");
+            if(menu0==="true"){exports.hpButton();
+                                console.log("Home Page Test case");}
+            if(menu1==="true"){exports.cHeadings();
+                                console.log("Chapter Headings Test case");}
             if(menu2==="true"){console.log("Prologe Test case");}
             if(menu3==="true"){console.log("Glossary Test case");}
             if(menu4==="true"){console.log("Contact Me Test case");}
             if(menu5==="true"){console.log("Buy the Book Test case");}            
             break;
         case 5:
+            console.log(dateStamp+": Selected all of the Biography Menu****");
             if(menu0==="true"){console.log("Creston Test case");}
             if(menu1==="true"){console.log("Bella To Headings Test case");}
             if(menu2==="true"){console.log("Tuppa To Test case");}
@@ -41,15 +67,18 @@ exports.menuPick=function(menuPick,menu0,menu1,menu2,menu3,menu4,menu5,menu6,men
             if(menu6==="true"){console.log("Cleophi Tan Test case");}
             break;
         case 6:
+            console.log(dateStamp+": Selected all of Gallery Menu****");
             if(menu0==="true"){console.log("Black & White Gallary Test case");}
             if(menu1==="true"){console.log("Color Gallary Test case");}
             break;
         case 2:   
         case 3:
-            if(menuPick===2){console.log(Date()+": Selected multiple selected tests****");}
-            if(menuPick===3){console.log(Date()+": Selected Everything****");};
-            if(menu0==="true"){console.log("Home Page Test case");}
-            if(menu1==="true"){console.log("Chapter Headings Test case");}
+            if(menuPick===2){console.log(dateStamp+": Selected multiple selected tests****");}
+            if(menuPick===3){console.log(dateStamp+": Selected Everything****");};
+            if(menu0==="true"){exports.hpButton();
+                                console.log("Home Page Test case");}
+            if(menu1==="true"){exports.cHeadings();
+                                console.log("Chapter Headings Test case");}
             if(menu2==="true"){console.log("Prologe Test case");}
             if(menu3==="true"){console.log("Glossary Test case");}
             if(menu4==="true"){console.log("Contact Me Test case");}
@@ -72,10 +101,7 @@ http.createServer(function (req, res) {
   var q = url.parse(req.url, true);
   var filename = "." + q.pathname;
   var qdata=q.query;  
-  console.log("The Menu Data: ");
-  console.log(qdata);
   var mSelect=parseInt(qdata.menu100);
-  console.log("mSelect: "+mSelect);
     // If there is a menu selection made do the following
     if((mSelect>0) && (mSelect<7))
         {

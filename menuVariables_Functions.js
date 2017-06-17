@@ -3,58 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//Defining variables
-    var mainTitle="The City of Kothos Automatic Testing Page";
-    var myButton=["All Menu Items",
-        "Submit Home Page Tests",
-        "Submit Biography Page Tests",
-        "Submit Gallery Page Tests"];
 
-    //First Menu labels
-    var m_one=["Home Page Button",
-        "Chapter Headings",
-        "Prologue",
-        "Glossary",
-        "Contact Me",
-        "Buy The Book",
-        "All Menu Items in Home Page Section"];
-
-
-    //Second Menu labels
-    var m_two=["Creston",
-        "Bella To",
-        "Tuppa To",
-        "Batuma Kan",
-        "Wen Ta",
-        "Sal Li",
-        "Cleophi Tan",
-        "All Menu Items in Biography Section"];
-
-
-    //Third Menu labels
-    var m_three=["Black & White Gallery",
-        "Color Gallery",
-        "Both Galleries"];
-
-    //Checkbox Names for each menu
-    var h_array=["m0_Check",
-        "m1_Check",
-        "m2_Check",
-        "m3_Check",
-        "m4_Check",
-        "m5_Check",
-        "all_1_Check"];
-    var b_array=["b0_Check",
-        "b1_Check",
-        "b2_Check",
-        "b3_Check",
-        "b4_Check",
-        "b5_Check",
-        "b6_Check",
-        "all_2_Check"];
-    var g_array=["g0_Check",
-        "g1_Check",
-        "all_3_Check"];
 
 //functions
 function httpGet(theUrl)
@@ -141,8 +90,6 @@ function runTestScripts(x)
     var lastItem=iName.pop();// Getting last item in Array
     iName.push(lastItem); // Adding item back to array
     ar_Length=iName.length;
-    console.log("The Name Array= "+gName);
-    console.log("The Input Tag Array= "+iName+" The arraylength is: "+ar_Length);
     // If the user selection is all tests in section.
     if(document.getElementById(lastItem).checked===true)
         {
