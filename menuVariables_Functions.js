@@ -43,7 +43,18 @@ function createURL1(ar,aName)
 
 function createURL2(ar,aName)
 {
-    var url="http://localhost:8080/index.html?menu100=2";
+    switch(aName.pop())
+    {
+        case "all_1_Check":
+            url="http://localhost:8080/index.html?menu100=4";
+            break;
+        case "all_2_Check":
+            url="http://localhost:8080/index.html?menu100=5";
+            break;
+        case "all_3_Check":
+            url="http://localhost:8080/index.html?menu100=6";
+            break;
+    }
     for(i=0;i<ar;i++)
     {
         n=i.toString();
@@ -70,7 +81,7 @@ function runTestScripts(x)
                 gName=m_one;
                 iName=h_array;
                 break;
-            case 1: // Biograph Selection
+            case 1: // Biography Selection
                 gName=m_two;
                 iName=b_array;
                 ar_Length=7;
@@ -100,7 +111,7 @@ function runTestScripts(x)
                     theURL=createURL1(ar_Length-1,iName);
                     break;
                 case "all_2_Check":
-                    console.log("Selected the biography Menu");
+                    console.log("Selected the Biography Menu");
                     theURL=createURL1(ar_Length-1,iName);
                     break;
                 case "all_3_Check":

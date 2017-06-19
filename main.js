@@ -9,90 +9,161 @@ var chrome = require('selenium-webdriver/chrome');
 var chromedriver = require('chromedriver');
 chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
 
-
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var dateFormat=require('dateformat');
+var sleep = require('system-sleep');
 
 // Test Case Functions
-exports.hpButton=function()
+exports.validateButton=function(sP,sCP,lTC,eCP,tN)
 {
     var driver = new webdriver.Builder().forBrowser('chrome').build();
-    driver.get('http://ramses/thePages/theChapterHeadings.shtml');
-    //var element = driver.findElement(webdriver.By.name('http://'))
-    //ERRROR No "name" tag for the home page button
-    driver.quit();
-};
-
-exports.cHeadings=function()
-{
-    var driver = new webdriver.Builder().forBrowser('chrome').build();    
-    driver.get('http://ramses/index.shtml');
-    var element=driver.findElement(webdriver.By.name('Chapter Headings'));
+    // Verify startup point of test.
+    console.log(exports.getDateStamp()+"***"+sP+", "+sCP+", "+lTC+", "+eCP+", "+tN);
+    driver.get(sP);
+    var ckPoint=exports.validateCheckPoint(sCP,driver);
+    if(ckPoint===true)
+        {console.log(exports.getDateStamp()+"***Verified Starting Point for: "+tN+" test");}
+    else
+        {console.log(exports.getDateStamp()+"***Incorrect Starting Pointfor: "+tN+" test. Canceling test.");
+        driver.quit();
+        return;}
+    // Verifying the link and destination
+    var element = driver.findElement(webdriver.By.name(lTC));
     element.click();
+    sleep(5000);
+    ckPoint=exports.validateCheckPoint(eCP,driver);
+    if(ckPoint===true)
+        {console.log(exports.getDateStamp()+"***Completed successfully the "+tN+" test!");}
+    else
+        {console.log(exports.getDateStamp()+"***Completed and failed the "+tN+" test!");}
     driver.quit();
-    
+};
+//*****************************************************************
+// Utility functions
+exports.validateCheckPoint=function(checkPoint,driver)
+{
+    x=driver.findElement(webdriver.By.id(checkPoint));
+    if(x!=="undefined")
+        {return true;}
+    else
+        {return false;}
 };
 
-
-//*****************************************************************
-
-
-
-exports.menuPick=function(menuPick,menu0,menu1,menu2,menu3,menu4,menu5,menu6,menu7,
-        menu8,menu9,menu10,menu11,menu12,menu13,menu14,menu15){
+exports.getDateStamp=function()
+{   
     var now=new Date();
     var dateStamp=dateFormat(now,"isoDateTime");
+    return dateStamp;
+};
+
+exports.menuPick=function(menuPick,menu0,menu1,menu2,menu3,menu4,menu5,menu6,menu7,
+        menu8,menu9,menu10,menu11,menu12,menu13,menu14){
     switch(menuPick)
     {   case 4:
-            console.log(dateStamp+": Selected all of the Home Page Menu****");
-            if(menu0==="true"){exports.hpButton();
-                                console.log("Home Page Test case");}
-            if(menu1==="true"){exports.cHeadings();
-                                console.log("Chapter Headings Test case");}
-            if(menu2==="true"){console.log("Prologe Test case");}
-            if(menu3==="true"){console.log("Glossary Test case");}
-            if(menu4==="true"){console.log("Contact Me Test case");}
-            if(menu5==="true"){console.log("Buy the Book Test case");}            
+            console.log(exports.getDateStamp()+": Selected all of the Home Page Menu****");
+            if(menu0==="true"){console.log(exports.getDateStamp()+"***Home Page Test case");
+                              exports.validateButton('http://ramses/thePages/theChapterHeadings.shtml'
+                              ,'cHckPoint','homepageicon','hPckPoint',"Home Page");}
+            if(menu1==="true"){console.log(exports.getDateStamp()+"***Chapter Headings Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Chapter Headings','cHckPoint','Chapter Headings');}
+            if(menu2==="true"){console.log(exports.getDateStamp()+"***Prologe Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Prologue','pLckPoint','Prologue');}
+            if(menu3==="true"){console.log(exports.getDateStamp()+"***Glossary Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Glossary','g1ckPoint','Glossary');}
+            if(menu4==="true"){console.log(exports.getDateStamp()+"***Contact Me Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Contact Me!','cMckPoint','Contact Me');}
+            if(menu5==="true"){console.log(exports.getDateStamp()+"***Buy the Book Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','BuyBook','bBckPoint','Buy the Book');}            
             break;
         case 5:
-            console.log(dateStamp+": Selected all of the Biography Menu****");
-            if(menu0==="true"){console.log("Creston Test case");}
-            if(menu1==="true"){console.log("Bella To Headings Test case");}
-            if(menu2==="true"){console.log("Tuppa To Test case");}
-            if(menu3==="true"){console.log("Batuma Kan Test case");}
-            if(menu4==="true"){console.log("Wen Ta Me Test case");}
-            if(menu5==="true"){console.log("Sal Li Test case");}
-            if(menu6==="true"){console.log("Cleophi Tan Test case");}
+            console.log(exports.getDateStamp()+": Selected all of the Biography Menu****");
+            if(menu0==="true"){console.log(exports.getDateStamp()+"***Creston Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Creston','cRckPoint','Creston');}
+            if(menu1==="true"){console.log(exports.getDateStamp()+"***Bella To Headings Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Bella Tu','bTckPoint','Bella Tu');}
+            if(menu2==="true"){console.log(exports.getDateStamp()+"***Tuppa To Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Tuppa Tu','tTckPoint','Tuppa Tu');}
+            if(menu3==="true"){console.log(exports.getDateStamp()+"***Batuma Kan Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Batuma Kan','bKckPoint','Batuma Kan');}
+            if(menu4==="true"){console.log(exports.getDateStamp()+"***Wen Ta Me Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Wen Ta','wTckPoint','Wen Ta');}
+            if(menu5==="true"){console.log(exports.getDateStamp()+"***Sal Li Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Sal Li','sLckPoint','Sal Li');}
+            if(menu6==="true"){console.log(exports.getDateStamp()+"***Cleophi Tan Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Cleophi Tan','cTckPoint','Cleophi Tan');}
             break;
         case 6:
-            console.log(dateStamp+": Selected all of Gallery Menu****");
-            if(menu0==="true"){console.log("Black & White Gallary Test case");}
-            if(menu1==="true"){console.log("Color Gallary Test case");}
+            console.log(exports.getDateStamp()+": Selected all of Gallery Menu****");
+            if(menu0==="true"){console.log(exports.getDateStamp()+"***Black & White Gallery Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','BWG','bWckPoint','B&W Gallery');}
+            if(menu1==="true"){console.log(exports.getDateStamp()+"***Color Gallery Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','ColorG','cLckPoint','Color Gallery');}
             break;
         case 2:   
         case 3:
-            if(menuPick===2){console.log(dateStamp+": Selected multiple selected tests****");}
-            if(menuPick===3){console.log(dateStamp+": Selected Everything****");};
-            if(menu0==="true"){exports.hpButton();
-                                console.log("Home Page Test case");}
-            if(menu1==="true"){exports.cHeadings();
-                                console.log("Chapter Headings Test case");}
-            if(menu2==="true"){console.log("Prologe Test case");}
-            if(menu3==="true"){console.log("Glossary Test case");}
-            if(menu4==="true"){console.log("Contact Me Test case");}
-            if(menu5==="true"){console.log("Buy the Book Test case");}
-            if(menu6==="true"){console.log("Creston Test case");}
-            if(menu7==="true"){console.log("Bella To Headings Test case");}
-            if(menu8==="true"){console.log("Tuppa To Test case");}
-            if(menu9==="true"){console.log("Batuma Kan Test case");}
-            if(menu10==="true"){console.log("Wen Ta Me Test case");}
-            if(menu11==="true"){console.log("Sal Li Test case");}
-            if(menu12==="true"){console.log("Batuma Kan Test case");}
-            if(menu13==="true"){console.log("Wen Ta Test case");}
-            if(menu14==="true"){console.log("Sal Li Test case");}
-            if(menu15==="true"){console.log("Black & White Gallary Test case");}
+            if(menuPick===2){console.log(exports.getDateStamp()+": Selected multiple selected tests****");}
+            if(menuPick===3){console.log(exports.getDateStamp()+": Selected Everything****");};
+            if(menu0==="true"){console.log(exports.getDateStamp()+"***Home Page Test case");
+                              exports.validateButton('http://ramses/thePages/theChapterHeadings.shtml'
+                              ,'cHckPoint','homepageicon','hPckPoint',"Home Page");}
+            if(menu1==="true"){console.log(exports.getDateStamp()+"***Chapter Headings Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Chapter Headings','cHckPoint','Chapter Headings');}
+            if(menu2==="true"){console.log(exports.getDateStamp()+"***Prologe Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Prologue','pLckPoint','Prologue');}
+            if(menu3==="true"){console.log(exports.getDateStamp()+"***Glossary Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Glossary','g1ckPoint','Glossary');}
+            if(menu4==="true"){console.log(exports.getDateStamp()+"***Contact Me Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Contact Me!','cMckPoint','Contact Me');}
+            if(menu5==="true"){console.log(exports.getDateStamp()+"***Buy the Book Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','BuyBook','bBckPoint','Buy the Book');}
+            if(menu6==="true"){console.log(exports.getDateStamp()+"***Creston Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Creston','cRckPoint','Creston');}
+            if(menu7==="true"){console.log(exports.getDateStamp()+"***Bella To Headings Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Bella Tu','bTckPoint','Bella To');}
+            if(menu8==="true"){console.log(exports.getDateStamp()+"***Tuppa To Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Tuppa Tu','tTckPoint','Tuppa Tu');}
+            if(menu9==="true"){console.log(exports.getDateStamp()+"***Batuma Kan Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Batuma Kan','bKckPoint','Batuma Kan');}
+            if(menu10==="true"){console.log(exports.getDateStamp()+"***Wen Ta Me Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Wen Ta','wTckPoint','Wen Ta');}
+            if(menu11==="true"){console.log(exports.getDateStamp()+"***Sal Li Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Sal Li','sLckPoint','Sal Li');}
+            if(menu12==="true"){console.log(exports.getDateStamp()+"***Cleophi Tan Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','Cleophi Tan','cTckPoint','Cleophi Tan');}
+            if(menu13==="true"){console.log(exports.getDateStamp()+"***Color Gallery Test case");
+                               exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','ColorG','cLckPoint','Color Gallery');}
+            if(menu14==="true"){console.log(exports.getDateStamp()+"***Black & White Gallery Test case");
+                              exports.validateButton('http://ramses/index.shtml'
+                              ,'hPckPoint','BWG','bWckPoint','B&W Gallery');}
             break;
     }
 };
@@ -105,6 +176,7 @@ http.createServer(function (req, res) {
     // If there is a menu selection made do the following
     if((mSelect>0) && (mSelect<7))
         {
+        console.log(exports.getDateStamp()+": Menu Selection: "+mSelect);
         exports.menuPick(mSelect,qdata.menu0,qdata.menu1,qdata.menu2,qdata.menu3
                 ,qdata.menu4,qdata.menu5,qdata.menu6
                 ,qdata.menu7,qdata.menu8,qdata.menu9
